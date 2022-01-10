@@ -21,7 +21,7 @@ func (d String) Len() int {
 // TestGetValue 测试数据写入和获取
 func TestGetValue(t *testing.T) {
 	cache := NewCache(int64(0) , nil) // 初始化cache, int64(0)表示cache内存大小不限制
-	cache.Add("key1", String("1234"))     // 添加数据
+	cache.Add("key1", String("1234")) // 添加数据
 	if v, ok := cache.GetValue("key1"); !ok || string(v.(String)) != "1234" {
 		t.Fatalf("cache hit key1=1234 failed")
 	}

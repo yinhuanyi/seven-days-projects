@@ -11,7 +11,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"seven-days-projects/YCache"
+	YCache2 "seven-days-projects/YCache/YCache"
 )
 
 var db = map[string]string{
@@ -21,8 +21,8 @@ var db = map[string]string{
 }
 
 // 创建实例
-func createGroup() *YCache.Group {
-	return YCache.NewGroup("scores", 2<<10, YCache.GetterFunc(
+func createGroup() *YCache2.Group {
+	return YCache2.NewGroup("scores", 2<<10, YCache2.GetterFunc(
 		func(key string) ([]byte, error) {
 			log.Println("[SlowDB] search key", key)
 			if v, ok := db[key]; ok {
@@ -33,9 +33,9 @@ func createGroup() *YCache.Group {
 }
 
 // 启动cache通信的HTTP服务
-func startCacheServer(addr string, addrs []string, group *YCache.Group) {
+func startCacheServer(addr string, addrs []string, group *YCache2.Group) {
 	// 实例化HTTPPool
-	peers := YCache.NewHTTPPool(addr)
+	peers := YCache2.NewHTTPPool(addr)
 	// 设置cache IP与HTTP信息的对应关系
 	peers.Set(addrs...)
 	// 将HTTPPool绑定到group中
@@ -46,7 +46,7 @@ func startCacheServer(addr string, addrs []string, group *YCache.Group) {
 }
 
 // 在启动一个对外的HTTP api服务
-func startAPIServer(apiAddr string, group *YCache.Group) {
+func startAPIServer(apiAddr string, group *YCache2.Group) {
 	http.Handle("/api", http.HandlerFunc(
 		func(w http.ResponseWriter, r *http.Request) {
 			// 获取请求的key

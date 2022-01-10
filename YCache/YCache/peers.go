@@ -6,7 +6,9 @@
 
 package YCache
 
-import "seven-days-projects/YCache/ycachepb"
+import (
+	"seven-days-projects/YCache/YCache/ycachepb"
+)
 
 // PeerPicker 用于实现基于用户传递的key，计算出请求的cache节点信息
 type PeerPicker interface {

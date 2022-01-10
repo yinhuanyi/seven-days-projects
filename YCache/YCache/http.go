@@ -13,8 +13,8 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"seven-days-projects/YCache/consistenthash"
-	"seven-days-projects/YCache/ycachepb"
+	"seven-days-projects/YCache/YCache/consistenthash"
+	"seven-days-projects/YCache/YCache/ycachepb"
 	"strings"
 	"sync"
 )
@@ -31,8 +31,8 @@ type HTTPPool struct {
 	basePath string
 
 	// 下面是新增成员变量，用于客户端实现
-	mu sync.Mutex // 添加互斥锁
-	peers *consistenthash.Map // 添加一致性hash算法实例
+	mu sync.Mutex                      // 添加互斥锁
+	peers *consistenthash.Map          // 添加一致性hash算法实例
 	httpGetters map[string]*httpGetter // 映射真实的cache实例信息与HTTP客户端的对应关系
 }
 

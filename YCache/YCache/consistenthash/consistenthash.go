@@ -18,9 +18,9 @@ type Hash func(data []byte) uint32
 
 // Map 这是hash环的主要结构
 type Map struct {
-	hash     Hash // hash函数
-	replicas int  // 一个cache节点对应的虚拟节点个数
-	keys     []int // hash环的虚拟节点hash值
+	hash     Hash           // hash函数
+	replicas int            // 一个cache节点对应的虚拟节点个数
+	keys     []int          // hash环的虚拟节点hash值
 	hashMap  map[int]string // 虚拟节点与真实节点的映射表
 }
 

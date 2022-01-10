@@ -9,8 +9,8 @@ package YCache
 import (
 	"fmt"
 	"log"
-	"seven-days-projects/YCache/singleflight"
-	"seven-days-projects/YCache/ycachepb"
+	"seven-days-projects/YCache/YCache/singleflight"
+	"seven-days-projects/YCache/YCache/ycachepb"
 	"sync"
 )
 
@@ -29,8 +29,8 @@ func (f GetterFunc) Get(key string) ([]byte, error) {
 
 // Group 可以认为是缓存的命名空间
 type Group struct {
-	name      string // 空间名称
-	getter    Getter // 获取外部数据的接口，待用户传递进来，实现cache miss的回调函数
+	name      string        // 空间名称
+	getter    Getter        // 获取外部数据的接口，待用户传递进来，实现cache miss的回调函数
 	mainCache cacheInstance // cache实例
 
 	// 新增成员变量
@@ -41,7 +41,7 @@ type Group struct {
 
 // groups是一个全局变量，那么在HTTP请求中可以获取到这个groups变量
 var (
-	mu     sync.RWMutex   // 读写锁，读取不加锁
+	mu     sync.RWMutex              // 读写锁，读取不加锁
 	groups = make(map[string]*Group) // 创建一个map，用于存放group实例与命名空间的对应关系
 )
 
@@ -57,7 +57,7 @@ func NewGroup(name string, cacheBytes int64, getter Getter) *Group {
 		name:      name,
 		getter:    getter,
 		mainCache: cacheInstance{cacheBytes: cacheBytes},
-		loader: &singleflight.Group{},
+		loader:    &singleflight.Group{},
 	}
 	// 添加到命名空间中
 	groups[name] = g

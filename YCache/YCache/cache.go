@@ -7,7 +7,7 @@
 package YCache
 
 import (
-	"seven-days-projects/YCache/lru"
+	"seven-days-projects/YCache/YCache/lru"
 	"sync"
 )
 
